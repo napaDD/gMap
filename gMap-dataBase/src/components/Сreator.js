@@ -30,7 +30,7 @@ const Creator = (props) => {
 	}
 	
 	return (
-    <div className="body">
+    <div className="creator_body">
       <Button variant="contained" color="primary" onClick={() => setDisplay(!display)}>{display? "Скрыть форму создания" : "Показать форму создания"}</Button>
 			<form className={display? "body_form" : "body_formClosed"}>
         <Input placeholder="Название организации" onChange={(e) => setState({name: e.target.value})} value={state.name}/>
