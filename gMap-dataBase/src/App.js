@@ -11,9 +11,10 @@ const  App = (props) => {
 
   useEffect(() => {
       db.collection('posts').onSnapshot(snapshot => (
-        setPosts(snapshot.docs.map(doc => doc.data()))
+        setPosts(snapshot.docs.map(doc => ({...doc.data() , id: doc.id})))
       ))
   }, [])
+
 
 
   return (

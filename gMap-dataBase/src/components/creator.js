@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import db from "../firebase";
 import "./creator.css";
 
+const docID = []
+
 const Creator = (props) => {
 	const [ state , setState] = useState({
 		name: "",
@@ -19,7 +21,11 @@ const Creator = (props) => {
 			phone: state.phone,
 			type: state.type
 		})
-		
+		.then(function(docRef){
+			docID.push(docRef.id)
+			console.log(docRef.id)
+			console.log(docID)
+		})
 	}
 	
 	return (

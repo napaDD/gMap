@@ -4,7 +4,7 @@ import db from "./firebase";
 const Post = forwardRef(({ name, address, phone, type , id , post } , ref) => {
     
     const onDeliteClick = () => {
-    db.collection('posts').doc().delete();
+    db.collection('posts').doc(post.id).delete();
   };
 
   return (
