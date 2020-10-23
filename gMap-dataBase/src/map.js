@@ -11,12 +11,13 @@ import {
   useLoadScript,
 } from "@react-google-maps/api";
 import { formatRelative } from "date-fns";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
 import "./App.css";
+import db from "./firebase";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -31,6 +32,13 @@ const center = {
 const Map = () => {
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [posts, setPosts] = useState([]);  
+  useEffect(() => {
+    db.collection("posts").onSnapshot((snapshot) =>
+      setPosts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    );
+  }, []);
+
 
   const onMapClick = useCallback((e) => {
     setMarkers((current) => [
@@ -72,10 +80,13 @@ const Map = () => {
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
-        {markers.map((item) => (
+        
+        {/* добавить ключи - key={item?.time.toISOString()} и добавить поле  time в дб*/}
+        
+        {posts.map((item) => (
           <Marker
-            key={item?.time.toISOString()}
-            position={{ lat: item?.lat, lng: item?.lng }}
+            
+            position={{ lat: posts[0].lat, lng: posts[0].lng }}
             onClick={() => {
               setSelected(item);
             }}

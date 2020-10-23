@@ -13,14 +13,16 @@ const Creator = (props) => {
 		phone: "",
 		type: "",
 	})
-	console.log(state)
+	// console.log(state)
 	const createDoc =(e)=> {
 		e.preventDefault();
 		db.collection('posts').add({
 			name: state.name,
 			address: state.address,
 			phone: state.phone,
-			type: state.type
+			type: state.type,
+			lat: 56.837465, 
+			lng: 35.868473
 		})
 		.then(function(docRef){
 			docID.push(docRef.id)
