@@ -3,7 +3,7 @@ import "./App.css";
 import Creator from "./components/Сreator";
 import db from "./firebase";
 import Post from "./components/Post";
-import Map, { Search } from "./map";
+import Map, { Search } from "./Map";
 
 const App = (props) => {
   const [posts, setPosts] = useState([]);
@@ -23,7 +23,7 @@ const App = (props) => {
           <Post
             post={post}
             name={post.name}
-            address={post.address}
+            address={post.street}
             phone={post.phone}
             type={post.type}
             id={post.id}

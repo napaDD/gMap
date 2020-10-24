@@ -16,8 +16,10 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
-import "./App.css";
+import "./Map.css";
 import db from "./firebase";
+
+
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -29,10 +31,14 @@ const center = {
   lng: 35.917599,
 };
 
+
+
+
 const Map = () => {
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
-  const [posts, setPosts] = useState([]);  
+  const [posts, setPosts] = useState([]);
+
   useEffect(() => {
     db.collection("posts").onSnapshot((snapshot) =>
       setPosts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
@@ -71,8 +77,6 @@ const Map = () => {
 
   return (
     <div className="App">
-      <Search panTo={panTo}/>
-
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={12}
@@ -80,42 +84,69 @@ const Map = () => {
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
-        
-        {/* добавить ключи - key={item?.time.toISOString()} и добавить поле  time в дб*/}
-        
-        {posts.map((item) => (
-          <Marker
-            
-            position={{ lat: posts[0].lat, lng: posts[0].lng }}
-            onClick={() => {
-              setSelected(item);
-            }}
-          />
-        ))}
-        {selected ? (
+
+        {/* добавить ключи - key={item?.time.toISOString()} и добавить поле  time в дб ,без времени маркер ломается и не отображается*/}
+
+        {posts.map((item) => {
+          return (
+            <Marker
+              key={item.id}
+              position={{ lat: item.coordinates[0], lng: item.coordinates[1] }}
+              onClick={() => {
+                setSelected(item);
+              }}
+            />
+          )
+        })}
+        {selected && (
           <InfoWindow
-            position={{ lat: selected.lat, lng: selected.lng }}
+            position={{ lat: selected.coordinates[0], lng: selected.coordinates[1] }}
             onCloseClick={() => setSelected(null)}
           >
             <div>
-              <h2>Working</h2>
-              <button onClick={() => setMarkers([null])}>DELITE</button>
-              <p>time: {formatRelative(selected.time, new Date())}</p>
+              <h1>{selected.street}</h1>
+              <h2>{selected.name}</h2>
+              <h3>{selected.type}</h3>
             </div>
           </InfoWindow>
-        ) : null}
+        )}
       </GoogleMap>
+      <Search panTo={panTo} />
     </div>
   );
 };
 
 export default Map;
 
+
 // Для иконок добавить icon={{url:}} в маркер размер иконки — scaledSize: new window.ggogle.maps.Size(30,30)
 
 // уже работает 23,10 —-->
 
-export const Search = ({panTo}) => {
+
+export const add = {
+  street: '',
+  lat: '',
+  lng: ''
+}
+
+
+export const Search = ({ panTo }) => {
+  const onSelect = async (address) => {
+    try {
+      const result = await getGeocode({ address });
+      const { lat, lng } = await getLatLng(result[0]);
+      panTo({ lat, lng })
+      // console.log(lat, lng , address)
+      add.street = address;
+      add.lat = lat;
+      add.lng = lng;
+      console.log(add)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const {
     ready,
     value,
@@ -129,34 +160,31 @@ export const Search = ({panTo}) => {
     },
   });
   return (
-    <Combobox
-      onSelect={async (address) => {
-        try {
-          const results = await getGeocode({ address });
-          const { lat, lng } = await getLatLng(results[0]);
-					panTo({lat , lng})
-					console.log(lat, lng);
-        } catch (error) {
-          console.log(error);
-        }
-
-        console.log(address);
-      }}
-    >
-      <ComboboxInput
-        value={value}
-        onChange={(e) => {
-          setValue(e.target.value);
-        }}
-        disabled={!ready}
-        placeholder="HHHHHHHHHHH"
-      />
-      <ComboboxPopover>
-        {status === "OK" &&
-          data.map(({ id, description }) => (
-            <ComboboxOption key={id} value={description} />
-          ))}
-      </ComboboxPopover>
-    </Combobox>
+    <div className="search">
+      <Combobox
+        onSelect={onSelect}
+      >
+        <ComboboxInput
+          className="search_input"
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
+          disabled={!ready}
+          placeholder="Введи адресс организации, которую хочешь добавить"
+        />
+        <ComboboxPopover>
+          {status === "OK" &&
+            data.map(({ id, description }) => (
+              <ComboboxOption key={id} value={description} />
+            ))}
+        </ComboboxPopover>
+      </Combobox>
+    </div>
   );
 };
+
+
+
+
+

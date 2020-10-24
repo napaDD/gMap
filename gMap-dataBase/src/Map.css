@@ -1,0 +1,19 @@
+.search > input{ 
+   padding: 20px;
+}
+
+[data-reach-combobox-input] {
+    margin: 20px;
+    padding: 20px;
+    width: 500px;
+
+    font-size: 18px;
+
+    border: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5)
+}
+
+[data-reach-combobox-input]:hover {
+    
+    box-shadow: 0 0 10px rgba(0,0,0,0.5)
+}
