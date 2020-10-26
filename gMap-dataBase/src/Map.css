@@ -26,7 +26,8 @@
     
     width: 500px;
     height: 800px;
-    background-color: teal;
+    background-color: white;
+    
 }
 
 .infoWindow_title { 
@@ -38,7 +39,8 @@
 }
 
 .infoWindow_title > button { 
-    position: relative;
-    left: 190px;
+    position: absolute;
+    top: 24px;
+    left: 430px;
     
 }

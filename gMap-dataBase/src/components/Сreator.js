@@ -24,10 +24,10 @@ const Creator = (props) => {
 		const time = new Date()
 		db.collection('posts').add({
 			id: `f${(~~(Math.random() * 1e8)).toString(16)}`, 
-			name: state.name,
-			phone: state.phone,
-			type: state.type,
-			street: add.street,
+			name: state.name || "dealult",
+			phone: state.phone || "dealult",
+			type: state.type || "dealult",
+			street: add.street || "dealult",
 			coordinates: [add.lat , add.lng],
 			time: time
 		})
@@ -47,7 +47,7 @@ const Creator = (props) => {
 			<Button variant="contained" color="primary" onClick={() => setDisplay(!display)}>{display ? "Скрыть форму создания" : "Показать форму создания"}</Button>
 			<form className={display ? "body_form" : "body_formClosed"}>
 				<Input placeholder="Название организации" onChange={(e) => setState({ name: e.target.value })} value={state.name} />
-				<Input placeholder="Адресс вводится автоматички " value={add.street} />
+				<Input placeholder="Адресс вводится автоматички " value={add.street} onChange={(e) =>  setState(e.target.value)}/>
 				<Input placeholder="Телефон" onChange={(e) => setState({ ...state, phone: e.target.value })} value={state.phone} />
 				
 				<Select  value={state.type} onChange={(e) => setState({ ...state, type: e.target.value })}>
