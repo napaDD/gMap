@@ -12,6 +12,7 @@ const Post = forwardRef(({ name, address, phone, type, id, post }, ref) => {
     <div fer={ref} className="post">
       <div className="form">
         <div className="form_title">
+        <a name={`${name.trim()}`}></a>
           <div className="form_name">
             <h1>
               Название организации: <span>{name}</span>

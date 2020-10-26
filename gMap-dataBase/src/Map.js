@@ -98,7 +98,7 @@ const Map = () => {
                     }
               }
               onClick={() => {
-                setSelected(item);
+                 setSelected(item)
               }}
             />
           );
@@ -120,7 +120,9 @@ const Map = () => {
             </InfoWindow>
             <div className="infoWindow_nav">
               <div className="infoWindow_title">
-                <h1>{selected.name}</h1>
+                <h1>
+                  <a href={`#${selected.name}`}>{selected.name}</a>
+                  </h1>
                 <Button onClick={() => setSelected(null)}>
                   <ArrowBackIos />
                 </Button>
