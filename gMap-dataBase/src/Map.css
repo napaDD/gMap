@@ -10,10 +10,15 @@
     font-size: 18px;
 
     border: none;
+    border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.5)
 }
 
 [data-reach-combobox-input]:hover {
     
     box-shadow: 0 0 10px rgba(0,0,0,0.5)
+}
+
+.info_window  {
+    
 }

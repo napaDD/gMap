@@ -10,7 +10,6 @@ import {
   Marker,
   useLoadScript,
 } from "@react-google-maps/api";
-import { formatRelative } from "date-fns";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import usePlacesAutocomplete, {
   getGeocode,
@@ -84,14 +83,13 @@ const Map = () => {
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
-
-        {/* добавить ключи - key={item?.time.toISOString()} и добавить поле  time в дб ,без времени маркер ломается и не отображается*/}
-
         {posts.map((item) => {
           return (
             <Marker
               key={item.id}
               position={{ lat: item.coordinates[0], lng: item.coordinates[1] }}
+              icon={item.type === "Поставщик" ? {url:"https://www.flaticon.com/premium-icon/icons/svg/3635/3635393.svg" , scaledSize: new window.google.maps.Size(30,30)} : {url: "https://www.flaticon.com/svg/static/icons/svg/2919/2919600.svg", scaledSize: new window.google.maps.Size(30,30)}}
+              
               onClick={() => {
                 setSelected(item);
               }}
@@ -103,7 +101,7 @@ const Map = () => {
             position={{ lat: selected.coordinates[0], lng: selected.coordinates[1] }}
             onCloseClick={() => setSelected(null)}
           >
-            <div>
+            <div className="info_window">
               <h1>{selected.street}</h1>
               <h2>{selected.name}</h2>
               <h3>{selected.type}</h3>

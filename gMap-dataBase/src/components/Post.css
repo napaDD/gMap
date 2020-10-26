@@ -1,17 +1,64 @@
 .post { 
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	
 }
 
 .form { 
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: flex-start;
 
 	padding: 25px;
 
-	border-bottom: 1px solid black;
 	border-radius: 5px;
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+
+	background-image: url("../escheresque.png");
+}
+
+.form_title { 
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.form_name > h1 {
+	font-size: 24px;
+	font-weight: 400;
+}
+
+.form_name > h1 > span {
+	font-style: oblique;
+	font-weight: 500;
+}
+
+.form_address > h1 {
+	font-size: 24px;
+	font-weight: 400;
+}
+
+.form_address > h1 > span {
+	font-style: oblique;
+	font-weight: 500;
+}
+
+.form_phone > h1 {
+	font-size: 24px;
+	font-weight: 400;
+}
+
+.form_phone > h1 > span {
+	font-style: oblique;
+	font-weight: 500;
+}
+
+.form_type > h1 {
+	font-size: 24px;
+	font-weight: 400;
+}
+
+.form_type > h1 > span {
+	font-style: oblique;
+	font-weight: 500;
 }
