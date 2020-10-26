@@ -34,7 +34,6 @@ const Map = () => {
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
   const [posts, setPosts] = useState([]);
-  const [display, setDisplay] = useState(false);
 
   useEffect(() => {
     db.collection("posts").onSnapshot((snapshot) =>
@@ -105,7 +104,7 @@ const Map = () => {
           );
         })}
         {selected && (
-          <div className="InfoWindow_main">
+          <div>
             <InfoWindow
               position={{
                 lat: selected.coordinates[0],
@@ -119,22 +118,20 @@ const Map = () => {
                 <h3>{selected.type}</h3>
               </div>
             </InfoWindow>
-            <div
-              className={display ? "infoWindow_nav" : "infoWindow_navClosed"}
-            >
+            <div className="infoWindow_nav">
               <div className="infoWindow_title">
                 <h1>{selected.name}</h1>
-                <Button onClick={() => setDisplay(!display)}>
+                <Button onClick={() => setSelected(null)}>
                   <ArrowBackIos />
                 </Button>
+              </div>
+              <div className="IndoNav_body">
+                <h2>{selected.street}</h2>
               </div>
             </div>
           </div>
         )}
       </GoogleMap>
-      <div className="openNav">
-        <Button variant="outlined">OPEN</Button>
-      </div>
       <Search panTo={panTo} />
     </div>
   );

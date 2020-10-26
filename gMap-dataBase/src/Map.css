@@ -19,12 +19,6 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.5)
 }
 
-.openNav > button {
-    position: relative;
-    right: 640px;
-    bottom: 600px;
-}
-
 .infoWindow_nav {
     position: relative;
     bottom: 20px;
@@ -33,10 +27,6 @@
     width: 500px;
     height: 800px;
     background-color: teal;
-}
-
-.infoWindow_navClosed  {
-    display: none;
 }
 
 .infoWindow_title { 
