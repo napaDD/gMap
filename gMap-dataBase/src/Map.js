@@ -17,8 +17,8 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import "./Map.css";
 import db from "./firebase";
-
-
+import { Button } from "@material-ui/core";
+import { ArrowBackIos } from "@material-ui/icons";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -30,20 +30,17 @@ const center = {
   lng: 35.917599,
 };
 
-
-
-
 const Map = () => {
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
   const [posts, setPosts] = useState([]);
+  const [display, setDisplay] = useState(false);
 
   useEffect(() => {
     db.collection("posts").onSnapshot((snapshot) =>
       setPosts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
     );
   }, []);
-
 
   const onMapClick = useCallback((e) => {
     setMarkers((current) => [
@@ -88,27 +85,56 @@ const Map = () => {
             <Marker
               key={item.id}
               position={{ lat: item.coordinates[0], lng: item.coordinates[1] }}
-              icon={item.type === "Поставщик" ? {url:"https://www.flaticon.com/premium-icon/icons/svg/3635/3635393.svg" , scaledSize: new window.google.maps.Size(30,30)} : {url: "https://www.flaticon.com/svg/static/icons/svg/2919/2919600.svg", scaledSize: new window.google.maps.Size(30,30)}}
-              
+              icon={
+                item.type === "Поставщик"
+                  ? {
+                      url:
+                        "https://www.flaticon.com/premium-icon/icons/svg/3635/3635393.svg",
+                      scaledSize: new window.google.maps.Size(30, 30),
+                    }
+                  : {
+                      url:
+                        "https://www.flaticon.com/svg/static/icons/svg/2919/2919600.svg",
+                      scaledSize: new window.google.maps.Size(30, 30),
+                    }
+              }
               onClick={() => {
                 setSelected(item);
               }}
             />
-          )
+          );
         })}
         {selected && (
-          <InfoWindow
-            position={{ lat: selected.coordinates[0], lng: selected.coordinates[1] }}
-            onCloseClick={() => setSelected(null)}
-          >
-            <div className="info_window">
-              <h1>{selected.street}</h1>
-              <h2>{selected.name}</h2>
-              <h3>{selected.type}</h3>
+          <div className="InfoWindow_main">
+            <InfoWindow
+              position={{
+                lat: selected.coordinates[0],
+                lng: selected.coordinates[1],
+              }}
+              onCloseClick={() => setSelected(null)}
+            >
+              <div className="info_window">
+                <h1>{selected.street}</h1>
+                <h2>{selected.name}</h2>
+                <h3>{selected.type}</h3>
+              </div>
+            </InfoWindow>
+            <div
+              className={display ? "infoWindow_nav" : "infoWindow_navClosed"}
+            >
+              <div className="infoWindow_title">
+                <h1>{selected.name}</h1>
+                <Button onClick={() => setDisplay(!display)}>
+                  <ArrowBackIos />
+                </Button>
+              </div>
             </div>
-          </InfoWindow>
+          </div>
         )}
       </GoogleMap>
+      <div className="openNav">
+        <Button variant="outlined">OPEN</Button>
+      </div>
       <Search panTo={panTo} />
     </div>
   );
@@ -116,34 +142,31 @@ const Map = () => {
 
 export default Map;
 
-
 // Для иконок добавить icon={{url:}} в маркер размер иконки — scaledSize: new window.ggogle.maps.Size(30,30)
 
 // уже работает 23,10 —-->
 
-
 export const add = {
-  street: '',
-  lat: '',
-  lng: ''
-}
-
+  street: "",
+  lat: "",
+  lng: "",
+};
 
 export const Search = ({ panTo }) => {
   const onSelect = async (address) => {
     try {
       const result = await getGeocode({ address });
       const { lat, lng } = await getLatLng(result[0]);
-      panTo({ lat, lng })
+      panTo({ lat, lng });
       // console.log(lat, lng , address)
       add.street = address;
       add.lat = lat;
       add.lng = lng;
-      console.log(add)
+      console.log(add);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const {
     ready,
@@ -159,9 +182,7 @@ export const Search = ({ panTo }) => {
   });
   return (
     <div className="search">
-      <Combobox
-        onSelect={onSelect}
-      >
+      <Combobox onSelect={onSelect}>
         <ComboboxInput
           className="search_input"
           value={value}
@@ -181,8 +202,3 @@ export const Search = ({ panTo }) => {
     </div>
   );
 };
-
-
-
-
-
