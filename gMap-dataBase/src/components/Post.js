@@ -3,7 +3,7 @@ import React, { forwardRef, useState } from "react";
 import db from "../firebase";
 import "./Post.css";
 
-const Post = forwardRef(({ name, address, phone, type, id, post }, ref) => {
+const Post = forwardRef(({ name, address, phone, type, time, post }, ref) => {
   const onDeliteClick = () => {
     db.collection("posts").doc(post.id).delete();
   };
@@ -12,7 +12,7 @@ const Post = forwardRef(({ name, address, phone, type, id, post }, ref) => {
     <div fer={ref} className="post">
       <div className="form">
         <div className="form_title">
-        <a name={`${name.trim()}`}></a>
+          <a name={`${name.trim()}`}></a>
           <div className="form_name">
             <h1>
               Название организации: <span>{name}</span>
@@ -38,7 +38,7 @@ const Post = forwardRef(({ name, address, phone, type, id, post }, ref) => {
           </Button>
         </div>
         <div className="form_more">
-         
+          <h1>Время создания: </h1>
         </div>
       </div>
     </div>

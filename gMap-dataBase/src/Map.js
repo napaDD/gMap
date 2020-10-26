@@ -88,13 +88,13 @@ const Map = () => {
                 item.type === "Поставщик"
                   ? {
                       url:
-                        "https://www.flaticon.com/premium-icon/icons/svg/3635/3635393.svg",
+                        "https://image.flaticon.com/icons/png/512/129/129945.png",
                       scaledSize: new window.google.maps.Size(30, 30),
                     }
                   : {
                       url:
                         "https://www.flaticon.com/svg/static/icons/svg/2919/2919600.svg",
-                      scaledSize: new window.google.maps.Size(30, 30),
+                      scaledSize: new window.google.maps.Size(20, 20),
                     }
               }
               onClick={() => {

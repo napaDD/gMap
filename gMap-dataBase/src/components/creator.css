@@ -5,6 +5,10 @@
 	margin: 20px;
 }
 
+.creator_body  > .MuiButtonBase-root {
+  margin-bottom: 20px;
+}
+
 .body_form {
 	
 	
@@ -34,6 +38,7 @@
 .body_form > .MuiButtonBase-root {
   color: black;
   background-color: cornflowerblue;
+ 
 }
 
 .body_form > .MuiButtonBase-root:hover {

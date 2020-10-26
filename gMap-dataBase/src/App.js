@@ -9,7 +9,7 @@ const App = (props) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    db.collection("posts").onSnapshot((snapshot) =>
+    db.collection("posts").orderBy("time" , "desc").onSnapshot((snapshot) =>
       setPosts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
     );
   }, []);
@@ -21,6 +21,7 @@ const App = (props) => {
       <div className="post">
         {posts.map((post) => (
           <Post
+            time={post.time}
             post={post}
             name={post.name}
             address={post.street}

@@ -10,7 +10,7 @@ import "./creator.css";
 
 
 const Creator = (props) => {
-	const [display, setDisplay] = useState(false)
+	const [display, setDisplay] = useState(true)
 	const [state, setState] = useState({
 		name: "",
 		phone: "",
@@ -31,7 +31,7 @@ const Creator = (props) => {
 		const time = new Date()
     if (posts.street === add.street) { 
 			db.collection('posts').doc(posts.id).update({
-				
+
 			})
 	 }
 
