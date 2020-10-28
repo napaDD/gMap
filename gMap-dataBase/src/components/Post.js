@@ -38,7 +38,7 @@ const Post = forwardRef(({ name, address, phone, type, time, post }, ref) => {
           </Button>
         </div>
         <div className="form_more">
-          <h1>Время создания: </h1>
+          <h1>Время создания: {time}</h1>
         </div>
       </div>
     </div>

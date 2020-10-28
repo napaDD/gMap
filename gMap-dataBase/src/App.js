@@ -21,7 +21,7 @@ const App = (props) => {
       <div className="post">
         {posts.map((post) => (
           <Post
-            time={post.time}
+            time={new Date(post.time.seconds * 1000).toLocaleDateString("ru-RU")}
             post={post}
             name={post.name}
             address={post.street}

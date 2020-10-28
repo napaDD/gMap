@@ -1,6 +1,4 @@
 import { Button, Input, InputLabel, MenuItem, Select } from "@material-ui/core";
-import { Update } from "@material-ui/icons";
-import { formatRelative } from "date-fns";
 import React, {  useEffect, useState } from "react";
 import db from "../firebase";
 import { add } from "../Map";
